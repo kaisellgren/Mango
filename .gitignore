@@ -1,0 +1,5 @@
+/.idea/
+/.project
+/pubspec.lock
+packages/
+/web/out

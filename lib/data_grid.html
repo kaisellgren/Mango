@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <element name="mango-data-grid" constructor="MangoDataGrid" extends="div">
+    <template>
+      <div class="mango-data-grid" style="width: {{ width }}px;">
+        <table class="mango-data-grid-header-table">
+          <thead>
+            <tr template iterate="column in columns">
+              <th class="mango-data-grid-header">{{ column['title'] }}</th>
+            </tr>
+          </thead>
+        </table>
+        <div class="mango-data-grid-data-scroller" style="height: {{ height }}px;">
+          <table class="mango-data-grid-data-table">
+            <colgroup template iterate="column in columns">
+              <col class="mango-data-grid-col">
+            </colgroup>
+            <tbody template iterate="row in rows">
+              <tr template iterate="column in columns" class="mango-data-grid-row">
+                <td>{{ row[column['id']] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </template>
+    <script type="application/dart" src="data_grid.dart"></script>
+  </element>
+</body>
+</html>

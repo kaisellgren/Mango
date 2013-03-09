@@ -1,0 +1,103 @@
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  margin: 64px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+table {
+  table-layout: fixed;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border: 1px solid #d2d2d2;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c3c3c3;
+  border: 1px solid #b5b5b5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #929292;
+  border: 1px solid #888888;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #7a7a7a;
+  border: 1px solid #6d6d6d;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.15);
+}
+
+.mango-data-grid {
+  overflow: hidden;
+  white-space: nowrap;
+  border: 1px solid #ddd;
+}
+
+.mango-data-grid-header-table {
+  position: relative;
+}
+
+.mango-data-grid-header {
+  background: -webkit-linear-gradient(top, #ffffff, #e6e6e6) repeat-x;
+  border-right: 1px solid #d0d0d0;
+  border-bottom: 1px solid #c0c0c0;
+  height: 28px;
+  padding: 0 14px;
+  line-height: 25px;
+  vertical-align: bottom;
+  font-size: 12px;
+  color: #444;
+  cursor: pointer;
+  -webkit-user-select: none;
+}
+
+.mango-data-grid-header:hover:not(:active) {
+  background-position-y: 8px;
+  background-color: white;
+  color: #006aae;
+  -webkit-transition: background-position 0.25s;
+  border-bottom: 1px solid #009cff;
+}
+
+.mango-data-grid-header:active {
+  background-image: none;
+  background-color: #f0f0f0;
+  color: #222;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid #b0b0b0;
+}
+
+.mango-data-grid-row > td {
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  padding: 4px 8px;
+  cursor: default;
+  -webkit-user-select: none;
+}
+
+.mango-data-grid-row:nth-child(odd) > td {
+  background: #f9f9f9;
+}
+
+.mango-data-grid-row:hover > td {
+  background: #ecf8ff;
+}
+
+.mango-data-grid-data-scroller {
+  overflow: auto;
+  white-space: nowrap;
+}

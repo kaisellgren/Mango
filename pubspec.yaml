@@ -1,0 +1,6 @@
+name: mango
+description: A beautiful and robust UI library.
+dependencies:
+  unittest: any
+  browser: any
+  web_ui: 0.4.1+5
