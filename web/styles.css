@@ -18,6 +18,7 @@ table {
 
 ::-webkit-scrollbar {
   width: 14px;
+  height: 14px;
 }
 
 ::-webkit-scrollbar-track {
@@ -58,11 +59,14 @@ table {
   height: 28px;
   padding: 0 14px;
   line-height: 25px;
-  vertical-align: bottom;
   font-size: 12px;
   color: #444;
   cursor: pointer;
   -webkit-user-select: none;
+}
+
+.mango-data-grid-header > div {
+  display: table-cell;
 }
 
 .mango-data-grid-header:hover:not(:active) {
@@ -100,4 +104,22 @@ table {
 .mango-data-grid-data-scroller {
   overflow: auto;
   white-space: nowrap;
+}
+
+.mango-data-grid-sort-asc {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 8px solid #666;
+  margin-left: 4px;
+}
+
+.mango-data-grid-sort-desc {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 8px solid #666;
+  margin-left: 4px;
 }

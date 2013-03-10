@@ -7,7 +7,19 @@
         <table class="mango-data-grid-header-table">
           <thead>
             <tr template iterate="column in columns">
-              <th class="mango-data-grid-header">{{ column['title'] }}</th>
+              <th class="mango-data-grid-header" on-click="sortBy(column['id'])">
+                <div>{{ column['title'] }}</div>
+                <div>
+                  <template if="isColumnSorted(column['id'])">
+                    <template if="isColumnAscendingSorted(column['id'])">
+                      <div class="mango-data-grid-sort-asc"></div>
+                    </template>
+                    <template if="isColumnAscendingSorted(column['id']) == false">
+                      <div class="mango-data-grid-sort-desc"></div>
+                    </template>
+                  </template>
+                </div>
+              </th>
             </tr>
           </thead>
         </table>
