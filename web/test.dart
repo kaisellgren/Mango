@@ -3,11 +3,11 @@ import 'package:web_ui/web_ui.dart';
 import 'package:web_ui/watcher.dart' as watchers;
 
 var columns = [
-  {'id': 'name', 'title': 'Name'},
-  {'id': 'age', 'title': 'Age'},
-  {'id': 'salary', 'title': 'Salary'},
-  {'id': 'company', 'title': 'Company'},
-  {'id': 'favorite-shows', 'title': 'Favorite TV shows'},
+    {'id': 'name', 'title': 'Name'},
+    {'id': 'age', 'title': 'Age'},
+    {'id': 'salary', 'title': 'Salary'},
+    {'id': 'company', 'title': 'Company'},
+    {'id': 'favorite-shows', 'title': 'Favorite TV shows'},
 ];
 
 var rows = [

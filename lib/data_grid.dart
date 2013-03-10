@@ -2,6 +2,7 @@ import 'dart:html';
 import 'dart:json';
 import 'dart:async';
 import 'dart:collection';
+import 'dart:math';
 
 import 'package:web_ui/web_ui.dart';
 import 'package:web_ui/watcher.dart' as watchers;
@@ -20,6 +21,16 @@ class MangoDataGrid extends WebComponent {
   int width;
   int height;
 
+  String get widthStyle {
+    if (width is int) return '${width}px';
+    return '100%';
+  }
+
+  String get heightStyle {
+    if (height is int) return '${height}px';
+    return '100%';
+  }
+
   List<ColumnSort> columnSorts = [];
 
   inserted() {
@@ -36,38 +47,80 @@ class MangoDataGrid extends WebComponent {
     _resizeColumns();
   }
 
+  /**
+   * Resizes <col> and header columns to proper sizes.
+   */
   _resizeColumns() {
-    var headers = _root.queryAll('.mango-data-grid-header');
+    var headerTable   = _root.query('.mango-data-grid-header-table');
+    var dataTable     = _root.query('.mango-data-grid-data-table');
+    var headers       = _root.queryAll('.mango-data-grid-header');
     var firstRowCells = _root.queryAll('.mango-data-grid-row > td');
-    var cols = _root.queryAll('.mango-data-grid-col');
+    var cols          = _root.queryAll('.mango-data-grid-col');
 
     if (firstRowCells.length == 0) return;
 
-    var totalWidth = 0;
+    var totalWidth = 1;
 
-    // Reset <col> widths.
-    cols.forEach((col) => col.style.width = 'auto');
+    // TODO: What if there are no rows?
+    if (firstRowCells.length == 0) return;
+
+    // Reset <col> and header widths.
+    cols.forEach((col) => col.style.width = '1px');
+    headers.forEach((header) => header.style.width = '1px');
+    headerTable.style.width = 'auto';
+    dataTable.style.width = 'auto';
 
     // Make sure that header columns are always as wide as cols, and the other way around as well.
     for (var i = 0, length = headers.length; i < length; i++) {
       var header = headers[i];
       var cell = firstRowCells[i];
 
-      if (header.clientWidth > cell.clientWidth) {
-        cols[i].style.width = '${header.offsetWidth}px';
-        totalWidth += header.offsetWidth;
-      } else {
-        header.style.width = '${cell.offsetWidth}px';
-        totalWidth += cell.offsetWidth;
+      var headerWidth = header.offsetWidth;
+      var cellWidth = cell.offsetWidth;
+
+      if (headerWidth > cellWidth) {
+        header.style.width = '${headerWidth}px';
+        cols[i].style.width = '${headerWidth}px';
+        totalWidth += headerWidth;
+      } else if (headerWidth < cellWidth) {
+        header.style.width = '${cellWidth}px';
+        cols[i].style.width = '${cellWidth}px';
+        totalWidth += cellWidth;
       }
     }
 
-    _root.query('.mango-data-grid-header-table').style.width = '${totalWidth}px';
-    _root.query('.mango-data-grid-data-table').style.width = '${totalWidth}px';
+    // The actual width of the data grid itself (not the contents).
+    var actualWidth = _root.query('.mango-data-grid').offsetWidth;
+
+    // If the actual data grid is wider than the contents, then resize the columns so that they fit the data grid width.
+    if (actualWidth > totalWidth) {
+      var emptySpace = actualWidth - totalWidth;
+
+      // For now, we don't support "weights", so share the space among all columns equally.
+      var amountPerCell = (emptySpace / headers.length).ceil().toInt();
+
+      for (var i = 0, length = headers.length; i < length; i++) {
+        var amount = amountPerCell;
+        if (amount > emptySpace) {
+          amount = emptySpace;
+        }
+
+        var width = headers[i].offsetWidth + amount;
+
+        headers[i].style.width = '${width}px';
+        cols[i].style.width = '${width}px';
+
+        totalWidth += amount;
+        emptySpace -= amount;
+      }
+    }
+
+    headerTable.style.width = '${totalWidth}px';
+    dataTable.style.width = '${totalWidth}px';
   }
 
   sortBy(String id) {
-    // See if the colum is already sorted.
+    // See if the column is already sorted.
     ColumnSort sort = columnSorts.firstMatching((c) => c.id == id, orElse: () => null);
 
     if (sort == null) {

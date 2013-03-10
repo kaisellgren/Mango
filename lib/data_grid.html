@@ -3,7 +3,7 @@
 <body>
   <element name="mango-data-grid" constructor="MangoDataGrid" extends="div">
     <template>
-      <div class="mango-data-grid" style="width: {{ width }}px;">
+      <div class="mango-data-grid" style="width: {{ widthStyle }};">
         <table class="mango-data-grid-header-table">
           <thead>
             <tr template iterate="column in columns">
@@ -23,7 +23,7 @@
             </tr>
           </thead>
         </table>
-        <div class="mango-data-grid-data-scroller" style="height: {{ height }}px;">
+        <div class="mango-data-grid-data-scroller" style="height: {{ heightStyle }};">
           <table class="mango-data-grid-data-table">
             <colgroup template iterate="column in columns">
               <col class="mango-data-grid-col">
